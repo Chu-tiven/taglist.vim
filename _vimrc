@@ -1,3 +1,6 @@
+set paste
+set ts=4 "设置tab为4空格
+"set list
 "colorscheme lucario
 colorscheme ron
 " 开启文件类型侦测
@@ -15,8 +18,8 @@ set backspace=indent,eol,start
 set wildmenu
 syntax on " 语法高亮
 "set ignorecase " 搜索模式里忽略大小写
-set autoindent " 设置自动对齐(缩进)：即每行的缩进值与上一行相等；使用 noautoindent 取消设置
-set smartindent " 智能对齐方式
+set noautoindent " 设置自动对齐(缩进)：即每行的缩进值与上一行相等；使用 noautoindent 取消设置
+"set smartindent " 智能对齐方式
 "au FileType c, cpp setlocal smartindent 
 filetype plugin indent on
 set tabstop=4 " 设置制表符(tab键)的宽度
@@ -31,7 +34,7 @@ set showmatch " 设置匹配模式，显示匹配的括号
 set linebreak " 整词换行
 set whichwrap=b,s,<,>,[,] " 光标从行首和行末时可以跳到另一行去
 "set hidden " Hide buffers when they are abandoned
-set mouse=a " Enable mouse usage (all modes) "使用鼠标
+"set mouse=a " Enable mouse usage (all modes) "使用鼠标
 set number " Enable line number "显示行号
 "set previewwindow " 标识预览窗口
 set history=50 " set command history to 50 "历史记录50条
@@ -51,22 +54,80 @@ set hlsearch " 高亮显示搜索结果
 "set guioptions-=m
 "set guioptions-=T
 " 禁止生成 .swp 文件
-"set noswapfile
+set noswapfile
 
+"########################################  TAGLIST ####################################
 "
 " taglist
 "
 let TlistToggle=1
 "let Tlist_GainFocus_On_ToggleOpen=1
 nnoremap <silent> <F8> :TlistToggle<CR>
-"let Tlist_Auto_Open=1
+let Tlist_Auto_Open=1
 let Tlist_Exit_OnlyWindow=1
 let Tlist_Use_SingleClick=1
 let Tlist_Show_One_File=1
 
+"########################################### CTAGS #####################################
 
-"set tags
+
+"`set tags
+map <F9> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+qf --c-types=+px . &<CR><CR>
+"map <F4> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR><CR>
+set tags=tags;  " ; 不可省略，表示若当前目录中不存在tags， 则在父目录中寻找。
 "set autochdir
+"set tags=/mnt/fileroot/tianwen.zhu/sdk/aosp/frameworks/base/tags,/mnt/fileroot/tianwen.zhu/sdk/aosp/packages/apps/Bluetooth/tags,/mnt/fileroot/tianwen.zhu/sdk/aosp/hardware/libhardware/tags;
+
+
+"########################################### CSCOPE ##########################################
+function! AutoLoadCTagsAndCScope()
+	let max = 5
+	let dir = './'
+	let i = 0
+	let break = 0
+	while isdirectory(dir) && i < max
+		if filereadable(dir . 'cscope.out') 
+		execute 'cs add ' . dir . 'cscope.out'
+		let break = 1
+		endif
+		if filereadable(dir . 'tags')
+		execute 'set tags =' . dir . 'tags'
+		let break = 1
+		endif
+		if break == 1
+		execute 'lcd ' . dir
+		break
+		endif
+		let dir = dir . '../'
+		let i = i + 1
+	endwhile
+endf
+nmap <F7> :call AutoLoadCTagsAndCScope()<CR>
+"call AutoLoadCTagsAndCScope() <CR>
+
+
+"=====cscope =======start
+"
+nmap <F3> <esc>:cp<cr>
+nmap <F4> <esc>:cn<cr>
+nmap <F5> :!find . -iname "*.c" -o -iname "*.cpp" -o -iname  "*.h" -o -iname "*.java" -o -iname "*.mk" > cscope.files<CR>
+			\ :!cscope -bkq -i cscope.files -f cscope.out<CR>
+			\ :cs reset<CR>
+
+nmap <F6> :!cscope add cscope.out<CR>
+set cscopequickfix=s-,c-,d-,i-,t-,e-
+
+nmap <C-_>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+nmap <C-_>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+nmap <C-_>c :cs find c <C-R>=expand("<cword>")<CR><CR>
+nmap <C-_>t :cs find t <C-R>=expand("<cword>")<CR><CR>
+nmap <C-_>e :cs find e <C-R>=expand("<cword>")<CR><CR>
+nmap <C-_>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
+nmap <C-_>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+nmap <C-_>d :cs find d <C-R>=expand("<cword>")<CR><CR>
 
 
 
+
+"
+"================end
