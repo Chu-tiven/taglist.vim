@@ -1,8 +1,8 @@
 set paste
 set ts=4 "设置tab为4空格
 "set list
-"colorscheme lucario
-colorscheme ron
+colorscheme lucario
+"colorscheme ron
 " 开启文件类型侦测
 filetype on
 " 根据侦测到的不同类型加载对应的插件
@@ -67,6 +67,7 @@ let Tlist_Auto_Open=1
 let Tlist_Exit_OnlyWindow=1
 let Tlist_Use_SingleClick=1
 let Tlist_Show_One_File=1
+let Tlist_WinWidth=50
 
 "########################################### CTAGS #####################################
 
@@ -110,11 +111,11 @@ nmap <F7> :call AutoLoadCTagsAndCScope()<CR>
 "
 nmap <F3> <esc>:cp<cr>
 nmap <F4> <esc>:cn<cr>
-nmap <F5> :!find . -iname "*.c" -o -iname "*.cpp" -o -iname  "*.h" -o -iname "*.java" -o -iname "*.mk" > cscope.files<CR>
-			\ :!cscope -bkq -i cscope.files -f cscope.out<CR>
-			\ :cs reset<CR>
+nmap <F5> :!find . -name *.c -o -iname *.cpp -o -iname *.java -o -iname *.py -o -iname *.mk -o -iname *.h > cscope.files<CR>
+\:!cscope -bkq -i cscope.files -f cscope.out<CR>
+\:cs kill -1<CR>:cs add cscope.out<cr>
 
-nmap <F6> :!cscope add cscope.out<CR>
+nmap <F6> :cs add cscope.out<CR>
 set cscopequickfix=s-,c-,d-,i-,t-,e-
 
 nmap <C-_>s :cs find s <C-R>=expand("<cword>")<CR><CR>

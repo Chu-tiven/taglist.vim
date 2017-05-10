@@ -1,0 +1,11 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =9
+let g:netrw_dirhist_1='/mnt/fileroot/tianwen.zhu/mysdk/n-amlogic/vendor/amlogic/frameworks/services/hdmicec'
+let g:netrw_dirhist_2='/mnt/fileroot/tianwen.zhu/mysdk/n-amlogic/vendor/amlogic/frameworks/services/hdmicec/binder'
+let g:netrw_dirhist_3='/mnt/fileroot/tianwen.zhu/mysdk/n-amlogic/vendor/amlogic/frameworks/services/hdmicec'
+let g:netrw_dirhist_4='/mnt/fileroot/tianwen.zhu/mysdk/n-amlogic/vendor/amlogic/frameworks/services/hdmicec/libhdmi_cec'
+let g:netrw_dirhist_5='/mnt/fileroot/tianwen.zhu/mysdk/n-amlogic/vendor/amlogic/frameworks/services/hdmicec'
+let g:netrw_dirhist_6='/mnt/fileroot/tianwen.zhu/mysdk/n-amlogic/vendor/amlogic/frameworks/services/hdmicec/server'
+let g:netrw_dirhist_7='/mnt/fileroot/tianwen.zhu/mysdk/n-amlogic/vendor/amlogic/frameworks/services/hdmicec/binder'
+let g:netrw_dirhist_8='/mnt/fileroot/tianwen.zhu/mysdk/n-amlogic/vendor/amlogic/frameworks/services/hdmicec'
+let g:netrw_dirhist_9='/mnt/fileroot/tianwen.zhu/mysdk/n-amlogic/vendor/amlogic/frameworks/services/hdmicec/server'
